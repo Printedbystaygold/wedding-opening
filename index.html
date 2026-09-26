@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+
+>
+
+  <title>Wedding Invitation</title>
+
+  <!-- =================================
+       FACEBOOK / MESSENGER PREVIEW
+       ================================= -->
+
+<meta
+property="og:type"
+content="website"
+
+>
+
+<meta
+property="og:title"
+content="Wedding Invitation"
+
+>
+
+<meta
+property="og:description"
+content="You are cordially invited."
+
+>
+
+<meta
+property="og:image"
+content="https://printedbystaygold.github.io/wedding-opening/preview.jpg"
+
+>
+
+<meta
+property="og:image:width"
+content="1200"
+
+>
+
+<meta
+property="og:image:height"
+content="630"
+
+>
+
+<meta
+property="og:url"
+content="https://printedbystaygold.github.io/wedding-opening/"
+
+>
+
+  <!-- =================================
+       PAGE STYLE
+       ================================= -->
+
+  <style>
+
+    /* ================================
+       BASIC PAGE
+       ================================ */
+
+    html,
+    body {
+
+      margin: 0;
+
+      width: 100%;
+      height: 100%;
+
+      overflow: hidden;
+
+      background: #f5f0e8;
+
+    }
+
+
+    /* ================================
+       DESKTOP / LANDSCAPE
+       ================================ */
+
+    #envelopeVideo {
+
+      position: fixed;
+
+      left: 50%;
+      top: 50%;
+
+      width: 100vw;
+      height: auto;
+
+      transform:
+        translate(-50%, -50%);
+
+      display: block;
+
+      cursor: pointer;
+
+    }
+
+
+    /* ================================
+       TAP TEXT
+       ================================ */
+
+    #tapText {
+
+      position: fixed;
+
+      left: 50%;
+      bottom: 8%;
+
+      transform:
+        translateX(-50%);
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: 12px;
+
+      letter-spacing: 2px;
+
+      color: #4e4039;
+
+      pointer-events: none;
+
+      white-space: nowrap;
+
+    }
+
+
+    /* ================================
+       SAMSUNG / MOBILE PORTRAIT
+       ================================ */
+
+    @media screen
+    and (max-width: 699px)
+    and (orientation: portrait) {
+
+      #envelopeVideo {
+
+        width: auto;
+
+        height: 115vh;
+
+        left: 50%;
+        top: 50%;
+
+        transform:
+          translate(-50%, -50%);
+
+      }
+
+
+      #tapText {
+
+        bottom: 6%;
+
+      }
+
+    }
+
+
+    /* ================================
+       SMALL PHONES
+       ================================ */
+
+    @media screen
+    and (max-width: 400px)
+    and (orientation: portrait) {
+
+      #envelopeVideo {
+
+        height: 120vh;
+
+      }
+
+    }
+
+
+    /* ================================
+       IPAD PORTRAIT
+       ================================ */
+
+    @media screen
+    and (min-width: 700px)
+    and (max-width: 1200px)
+    and (orientation: portrait) {
+
+      #envelopeVideo {
+
+        width: auto;
+
+        height: 160vh;
+
+        left: 50%;
+        top: 50%;
+
+        transform:
+          translate(-50%, -50%);
+
+      }
+
+    }
+
+
+    /* ================================
+       LANDSCAPE
+       ================================ */
+
+    @media screen
+    and (orientation: landscape) {
+
+      #envelopeVideo {
+
+        width: 100vw;
+
+        height: auto;
+
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- =================================
+       ENVELOPE VIDEO
+       ================================= -->
+
+<video
+id="envelopeVideo"
+muted
+playsinline
+webkit-playsinline
+preload="auto"
+
+>
+
+```
+<source
+  src="./opening-envelope.mp4"
+  type="video/mp4"
+>
+```
+
+  </video>
+
+  <!-- =================================
+       TAP TEXT
+       ================================= -->
+
+  <div id="tapText">
+
+```
+Tap to open
+```
+
+  </div>
+
+  <!-- =================================
+       JAVASCRIPT
+       ================================= -->
+
+  <script>
+
+    const video =
+      document.getElementById("envelopeVideo");
+
+    const tapText =
+      document.getElementById("tapText");
+
+
+    /* ================================
+       KEEP VIDEO AT FIRST FRAME
+       ================================ */
+
+    video.pause();
+
+
+    video.addEventListener(
+      "loadedmetadata",
+      function () {
+
+        video.currentTime = 0;
+
+      }
+    );
+
+
+    /* ================================
+       TAP TO PLAY
+       ================================ */
+
+    video.addEventListener(
+      "click",
+      function () {
+
+        tapText.style.display = "none";
+
+        video.currentTime = 0;
+
+        video.play();
+
+      }
+    );
+
+
+    /* ================================
+       TOUCH / MOBILE
+       ================================ */
+
+    video.addEventListener(
+      "touchend",
+      function (event) {
+
+        event.preventDefault();
+
+        tapText.style.display = "none";
+
+        video.currentTime = 0;
+
+        video.play();
+
+      },
+      { passive: false }
+    );
+
+
+  </script>
+
+</body>
+
+</html>
