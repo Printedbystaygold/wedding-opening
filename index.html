@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -9,56 +8,105 @@
 <meta
 name="viewport"
 content="width=device-width, initial-scale=1.0"
-
 >
 
 <title>Wedding Invitation</title>
 
+
 <!-- =================================
-     SOCIAL PREVIEW
+     FACEBOOK / MESSENGER PREVIEW
 ================================= -->
 
 <meta
 property="og:type"
 content="website"
-
 >
 
 <meta
 property="og:title"
 content="Wedding Invitation"
-
 >
 
 <meta
 property="og:description"
 content="You are cordially invited."
-
->
-
-<meta
-property="og:image"
-content="https://printedbystaygold.github.io/wedding-opening/preview.jpg"
-
->
-
-<meta
-property="og:image:width"
-content="1200"
-
->
-
-<meta
-property="og:image:height"
-content="630"
-
 >
 
 <meta
 property="og:url"
 content="https://printedbystaygold.github.io/wedding-opening/"
-
 >
+
+<meta
+property="og:image"
+content="https://printedbystaygold.github.io/wedding-opening/preview.jpg"
+>
+
+<meta
+property="og:image:url"
+content="https://printedbystaygold.github.io/wedding-opening/preview.jpg"
+>
+
+<meta
+property="og:image:secure_url"
+content="https://printedbystaygold.github.io/wedding-opening/preview.jpg"
+>
+
+<meta
+property="og:image:type"
+content="image/jpeg"
+>
+
+<meta
+property="og:image:width"
+content="1200"
+>
+
+<meta
+property="og:image:height"
+content="630"
+>
+
+<meta
+property="og:image:alt"
+content="Wedding invitation envelope"
+>
+
+<meta
+property="og:site_name"
+content="Printed by StayGold"
+>
+
+<meta
+property="og:locale"
+content="en_US"
+>
+
+
+<!-- =================================
+     TWITTER / OTHER PREVIEW
+================================= -->
+
+<meta
+name="twitter:card"
+content="summary_large_image"
+>
+
+<meta
+name="twitter:title"
+content="Wedding Invitation"
+>
+
+<meta
+name="twitter:description"
+content="You are cordially invited."
+>
+
+<meta
+name="twitter:image"
+content="https://printedbystaygold.github.io/wedding-opening/preview.jpg"
+>
+
 
 <style>
 
@@ -197,7 +245,7 @@ opacity 1.4s ease;
 
 
 /* =================================
-   TEXT
+   CORDIALLY TEXT
 ================================= */
 
 #cordially {
@@ -227,7 +275,7 @@ white-space:nowrap;
 
 
 /* =================================
-   LINE
+   DECORATIVE LINE
 ================================= */
 
 #cordiallyLine {
@@ -325,7 +373,7 @@ height:120vh;
 
 
 /* =================================
-   IPAD
+   IPAD PORTRAIT
 ================================= */
 
 @media screen
@@ -371,7 +419,9 @@ height:auto;
 
 </head>
 
+
 <body>
+
 
 <!-- =================================
      ENVELOPE VIDEO
@@ -385,16 +435,15 @@ muted
 playsinline
 webkit-playsinline
 preload="auto"
-
 >
 
 <source
 src="./opening-envelope.mp4"
 type="video/mp4"
-
 >
 
 </video>
+
 
 <div id="tapText">
 
@@ -403,6 +452,7 @@ Tap to open
 </div>
 
 </main>
+
 
 <!-- =================================
      CORDIALLY INVITED
@@ -420,11 +470,13 @@ Cordially Invited
 
 </div>
 
+
 <!-- =================================
      FINAL FADE
 ================================= -->
 
 <div id="finalFade"></div>
+
 
 <script>
 
@@ -459,7 +511,7 @@ document.getElementById(
 
 
 /* =================================
-   CANVA WEBSITE
+   CANVA WEDDING WEBSITE
 ================================= */
 
 const weddingWebsite =
@@ -522,7 +574,7 @@ tapText.style.opacity = "1";
 
 
 /* =================================
-   CLICK
+   CLICK ANYWHERE ON VIDEO
 ================================= */
 
 video.addEventListener(
@@ -554,7 +606,8 @@ passive:false
 
 
 /* =================================
-   START CORDIALLY BEFORE VIDEO ENDS
+   CORDIALLY INVITED
+   APPEARS BEFORE VIDEO ENDS
 ================================= */
 
 video.addEventListener(
@@ -568,8 +621,8 @@ if (textStarted) return;
 
 /*
    Start approximately
-   2 seconds before the
-   video finishes.
+   2 seconds before
+   the video finishes.
 */
 
 if (
@@ -583,7 +636,8 @@ textStarted = true;
 
 /*
    Fade in Cordially Invited
-   while the video is STILL playing.
+   while the envelope animation
+   is still playing.
 */
 
 cordiallyOverlay.style.opacity =
@@ -626,8 +680,8 @@ transitioning = true;
 
 
 /*
-   The text is already visible.
-   Only hold very briefly.
+   Very short hold after
+   Cordially Invited is visible.
 */
 
 setTimeout(
@@ -635,7 +689,7 @@ function() {
 
 
 /*
-   Fade directly to ivory.
+   Fade to ivory.
 */
 
 finalFade.style.opacity =
@@ -643,7 +697,8 @@ finalFade.style.opacity =
 
 
 /*
-   Open Canva after fade.
+   Redirect to the actual
+   wedding website.
 */
 
 setTimeout(
