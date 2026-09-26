@@ -15,7 +15,7 @@ content="width=device-width, initial-scale=1.0"
 <title>Wedding Invitation</title>
 
 <!-- =================================
-     FACEBOOK / MESSENGER PREVIEW
+     SOCIAL PREVIEW
 ================================= -->
 
 <meta
@@ -191,7 +191,7 @@ pointer-events:none;
 opacity:0;
 
 transition:
-opacity 1.5s ease;
+opacity 1.4s ease;
 
 }
 
@@ -219,7 +219,7 @@ color:#f5f0e8;
 text-align:center;
 
 text-shadow:
-0 1px 8px rgba(0,0,0,.18);
+0 1px 10px rgba(0,0,0,.22);
 
 white-space:nowrap;
 
@@ -227,7 +227,7 @@ white-space:nowrap;
 
 
 /* =================================
-   DECORATIVE LINE
+   LINE
 ================================= */
 
 #cordiallyLine {
@@ -238,7 +238,7 @@ height:1px;
 
 background:#f5f0e8;
 
-margin-top:24px;
+margin-top:22px;
 
 opacity:0;
 
@@ -253,7 +253,7 @@ transform 1s ease;
 
 
 /* =================================
-   FINAL IVORY FADE
+   FINAL FADE
 ================================= */
 
 #finalFade {
@@ -271,7 +271,7 @@ opacity:0;
 pointer-events:none;
 
 transition:
-opacity 1.2s ease;
+opacity .9s ease;
 
 }
 
@@ -325,7 +325,7 @@ height:120vh;
 
 
 /* =================================
-   IPAD PORTRAIT
+   IPAD
 ================================= */
 
 @media screen
@@ -374,7 +374,7 @@ height:auto;
 <body>
 
 <!-- =================================
-     ENVELOPE
+     ENVELOPE VIDEO
 ================================= -->
 
 <main id="opening">
@@ -405,7 +405,7 @@ Tap to open
 </main>
 
 <!-- =================================
-     CORDIALLY INVITED OVER VIDEO
+     CORDIALLY INVITED
 ================================= -->
 
 <div id="cordiallyOverlay">
@@ -469,6 +469,8 @@ const weddingWebsite =
 let opened = false;
 
 let transitioning = false;
+
+let textStarted = false;
 
 
 /* =================================
@@ -552,7 +554,66 @@ passive:false
 
 
 /* =================================
-   VIDEO END
+   START CORDIALLY BEFORE VIDEO ENDS
+================================= */
+
+video.addEventListener(
+"timeupdate",
+function() {
+
+if (!opened) return;
+
+if (textStarted) return;
+
+
+/*
+   Start approximately
+   2 seconds before the
+   video finishes.
+*/
+
+if (
+video.duration &&
+video.currentTime >=
+video.duration - 2
+) {
+
+textStarted = true;
+
+
+/*
+   Fade in Cordially Invited
+   while the video is STILL playing.
+*/
+
+cordiallyOverlay.style.opacity =
+"1";
+
+
+/*
+   Decorative line follows.
+*/
+
+setTimeout(
+function() {
+
+cordiallyLine.style.opacity =
+"1";
+
+cordiallyLine.style.transform =
+"scaleX(1)";
+
+},
+500
+);
+
+}
+
+});
+
+
+/* =================================
+   VIDEO FINISHED
 ================================= */
 
 video.addEventListener(
@@ -565,61 +626,41 @@ transitioning = true;
 
 
 /*
-   VIDEO HAS FULLY FINISHED.
-
-   NOW SHOW CORDIALLY INVITED
-   OVER THE FINAL VIDEO FRAME.
+   The text is already visible.
+   Only hold very briefly.
 */
 
-cordiallyOverlay.style.opacity = "1";
+setTimeout(
+function() {
 
 
 /*
-   Decorative line appears
-   slightly after the text.
+   Fade directly to ivory.
 */
 
-setTimeout(function() {
-
-cordiallyLine.style.opacity = "1";
-
-cordiallyLine.style.transform =
-"scaleX(1)";
-
-},500);
+finalFade.style.opacity =
+"1";
 
 
 /*
-   Keep the final frame + text
-   visible briefly.
+   Open Canva after fade.
 */
 
-setTimeout(function() {
-
-
-/*
-   Fade everything to ivory.
-*/
-
-finalFade.style.opacity = "1";
-
-
-/*
-   Give the fade time to complete,
-   then open Canva.
-*/
-
-setTimeout(function() {
+setTimeout(
+function() {
 
 window.location.replace(
 weddingWebsite
 );
 
-},1200);
+},
+900
+);
 
 
-},1900);
-
+},
+400
+);
 
 });
 
