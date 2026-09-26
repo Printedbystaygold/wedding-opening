@@ -14,7 +14,9 @@ content="width=device-width, initial-scale=1.0"
 
 <title>Wedding Invitation</title>
 
-<!-- SOCIAL PREVIEW -->
+<!-- =================================
+     FACEBOOK / MESSENGER PREVIEW
+================================= -->
 
 <meta
 property="og:type"
@@ -96,8 +98,6 @@ overflow:hidden;
 
 background:#f5f0e8;
 
-z-index:1;
-
 }
 
 
@@ -121,6 +121,8 @@ translate(-50%,-50%);
 display:block;
 
 cursor:pointer;
+
+z-index:1;
 
 }
 
@@ -158,25 +160,21 @@ pointer-events:none;
 z-index:5;
 
 transition:
-opacity .5s ease;
+opacity .6s ease;
 
 }
 
 
 /* =================================
-   TRANSITION
+   CORDIALLY INVITED
+   OVER VIDEO
 ================================= */
 
-#transitionScreen {
+#cordiallyOverlay {
 
 position:fixed;
 
 inset:0;
-
-width:100vw;
-height:100vh;
-
-background:#f5f0e8;
 
 display:flex;
 
@@ -184,40 +182,22 @@ align-items:center;
 
 justify-content:center;
 
-z-index:100;
+flex-direction:column;
+
+z-index:10;
+
+pointer-events:none;
 
 opacity:0;
 
-visibility:hidden;
-
 transition:
-opacity 1s ease;
+opacity 1.5s ease;
 
 }
 
 
 /* =================================
-   TRANSITION CONTENT
-================================= */
-
-#transitionContent {
-
-text-align:center;
-
-opacity:0;
-
-transform:
-translateY(15px);
-
-transition:
-opacity 1.2s ease,
-transform 1.2s ease;
-
-}
-
-
-/* =================================
-   CORDIALLY INVITED
+   TEXT
 ================================= */
 
 #cordially {
@@ -234,7 +214,12 @@ font-weight:normal;
 
 letter-spacing:5px;
 
-color:#4e4039;
+color:#f5f0e8;
+
+text-align:center;
+
+text-shadow:
+0 1px 8px rgba(0,0,0,.18);
 
 white-space:nowrap;
 
@@ -245,15 +230,15 @@ white-space:nowrap;
    DECORATIVE LINE
 ================================= */
 
-#transitionLine {
+#cordiallyLine {
 
 width:50px;
 
 height:1px;
 
-background:#9b8c7d;
+background:#f5f0e8;
 
-margin:24px auto 0;
+margin-top:24px;
 
 opacity:0;
 
@@ -263,6 +248,30 @@ scaleX(0);
 transition:
 opacity 1s ease,
 transform 1s ease;
+
+}
+
+
+/* =================================
+   FINAL IVORY FADE
+================================= */
+
+#finalFade {
+
+position:fixed;
+
+inset:0;
+
+background:#f5f0e8;
+
+z-index:20;
+
+opacity:0;
+
+pointer-events:none;
+
+transition:
+opacity 1.2s ease;
 
 }
 
@@ -316,7 +325,7 @@ height:120vh;
 
 
 /* =================================
-   IPAD
+   IPAD PORTRAIT
 ================================= */
 
 @media screen
@@ -365,7 +374,7 @@ height:auto;
 <body>
 
 <!-- =================================
-     OPENING VIDEO
+     ENVELOPE
 ================================= -->
 
 <main id="opening">
@@ -396,12 +405,10 @@ Tap to open
 </main>
 
 <!-- =================================
-     LUXURY TRANSITION
+     CORDIALLY INVITED OVER VIDEO
 ================================= -->
 
-<section id="transitionScreen">
-
-<div id="transitionContent">
+<div id="cordiallyOverlay">
 
 <div id="cordially">
 
@@ -409,11 +416,15 @@ Cordially Invited
 
 </div>
 
-<div id="transitionLine"></div>
+<div id="cordiallyLine"></div>
 
 </div>
 
-</section>
+<!-- =================================
+     FINAL FADE
+================================= -->
+
+<div id="finalFade"></div>
 
 <script>
 
@@ -431,19 +442,19 @@ document.getElementById(
 "tapText"
 );
 
-const transitionScreen =
+const cordiallyOverlay =
 document.getElementById(
-"transitionScreen"
+"cordiallyOverlay"
 );
 
-const transitionContent =
+const cordiallyLine =
 document.getElementById(
-"transitionContent"
+"cordiallyLine"
 );
 
-const transitionLine =
+const finalFade =
 document.getElementById(
-"transitionLine"
+"finalFade"
 );
 
 
@@ -461,10 +472,11 @@ let transitioning = false;
 
 
 /* =================================
-   INITIAL FRAME
+   INITIAL STATE
 ================================= */
 
 video.pause();
+
 
 video.addEventListener(
 "loadedmetadata",
@@ -476,7 +488,7 @@ video.currentTime = 0;
 
 
 /* =================================
-   OPEN
+   OPEN INVITATION
 ================================= */
 
 function openInvitation() {
@@ -521,7 +533,7 @@ openInvitation();
 
 
 /* =================================
-   MOBILE
+   MOBILE TOUCH
 ================================= */
 
 video.addEventListener(
@@ -553,47 +565,48 @@ transitioning = true;
 
 
 /*
-   WAIT FOR THE LAST FRAME
+   VIDEO HAS FULLY FINISHED.
+
+   NOW SHOW CORDIALLY INVITED
+   OVER THE FINAL VIDEO FRAME.
+*/
+
+cordiallyOverlay.style.opacity = "1";
+
+
+/*
+   Decorative line appears
+   slightly after the text.
 */
 
 setTimeout(function() {
 
+cordiallyLine.style.opacity = "1";
 
-/*
-   PUT IVORY SCREEN
-   OVER THE VIDEO
-*/
-
-transitionScreen.style.visibility =
-"visible";
-
-transitionScreen.style.opacity =
-"1";
-
-
-/*
-   SHOW TEXT
-*/
-
-setTimeout(function() {
-
-transitionContent.style.opacity =
-"1";
-
-transitionContent.style.transform =
-"translateY(0)";
-
-transitionLine.style.opacity =
-"1";
-
-transitionLine.style.transform =
+cordiallyLine.style.transform =
 "scaleX(1)";
 
 },500);
 
 
 /*
-   REDIRECT
+   Keep the final frame + text
+   visible briefly.
+*/
+
+setTimeout(function() {
+
+
+/*
+   Fade everything to ivory.
+*/
+
+finalFade.style.opacity = "1";
+
+
+/*
+   Give the fade time to complete,
+   then open Canva.
 */
 
 setTimeout(function() {
@@ -602,10 +615,11 @@ window.location.replace(
 weddingWebsite
 );
 
-},2300);
+},1200);
 
 
-},150);
+},1900);
+
 
 });
 
@@ -614,4 +628,4 @@ weddingWebsite
 
 </body>
 
-</html
+</html>
