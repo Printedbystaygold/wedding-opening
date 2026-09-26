@@ -15,7 +15,7 @@ content="width=device-width, initial-scale=1.0"
   <title>Wedding Invitation</title>
 
   <!-- =================================
-       SOCIAL MEDIA PREVIEW
+       FACEBOOK / MESSENGER PREVIEW
        ================================= -->
 
 <meta
@@ -62,9 +62,9 @@ content="https://printedbystaygold.github.io/wedding-opening/"
 
   <style>
 
-    /* ================================
-       PAGE
-       ================================ */
+    /* =================================
+       BASIC PAGE
+       ================================= */
 
     html,
     body {
@@ -81,9 +81,9 @@ content="https://printedbystaygold.github.io/wedding-opening/"
     }
 
 
-    /* ================================
-       OPENING
-       ================================ */
+    /* =================================
+       OPENING EXPERIENCE
+       ================================= */
 
     #opening {
 
@@ -98,17 +98,14 @@ content="https://printedbystaygold.github.io/wedding-opening/"
 
       background: #f5f0e8;
 
-      opacity: 1;
-
-      transition:
-        opacity 0.8s ease;
+      z-index: 1;
 
     }
 
 
-    /* ================================
-       VIDEO
-       ================================ */
+    /* =================================
+       ENVELOPE VIDEO
+       ================================= */
 
     #envelopeVideo {
 
@@ -127,18 +124,21 @@ content="https://printedbystaygold.github.io/wedding-opening/"
 
       cursor: pointer;
 
+      z-index: 1;
+
     }
 
 
-    /* ================================
-       TAP TEXT
-       ================================ */
+    /* =================================
+       TAP TO OPEN
+       ================================= */
 
     #tapText {
 
       position: fixed;
 
       left: 50%;
+
       bottom: 8%;
 
       transform:
@@ -155,46 +155,120 @@ content="https://printedbystaygold.github.io/wedding-opening/"
 
       color: #4e4039;
 
-      pointer-events: none;
-
       white-space: nowrap;
 
+      pointer-events: none;
+
+      z-index: 5;
+
       transition:
-        opacity 0.4s ease;
+        opacity 0.5s ease;
 
     }
 
 
-    /* ================================
-       TRANSITION COVER
-       ================================ */
+    /* =================================
+       LUXURY TRANSITION
+       ================================= */
 
-    #transitionCover {
+    #transitionScreen {
 
       position: fixed;
 
       inset: 0;
 
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
 
       background: #f5f0e8;
 
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      flex-direction: column;
+
       opacity: 0;
 
-      pointer-events: none;
+      visibility: hidden;
 
-      z-index: 20;
+      z-index: 50;
 
       transition:
-        opacity 0.9s ease;
+        opacity 1.1s ease,
+        visibility 1.1s ease;
 
     }
 
 
-    /* ================================
-       MOBILE
-       ================================ */
+    /* =================================
+       CORDIALLY INVITED
+       ================================= */
+
+    #cordially {
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: clamp(
+        22px,
+        5vw,
+        42px
+      );
+
+      font-weight: normal;
+
+      letter-spacing: 4px;
+
+      color: #4e4039;
+
+      text-align: center;
+
+      opacity: 0;
+
+      transform:
+        translateY(12px);
+
+      transition:
+        opacity 1.2s ease,
+        transform 1.2s ease;
+
+    }
+
+
+    /* =================================
+       SMALL DECORATIVE LINE
+       ================================= */
+
+    #transitionLine {
+
+      width: 45px;
+
+      height: 1px;
+
+      background: #9b8c7d;
+
+      margin-top: 24px;
+
+      opacity: 0;
+
+      transform:
+        scaleX(0);
+
+      transition:
+        opacity 1s ease,
+        transform 1s ease;
+
+    }
+
+
+    /* =================================
+       MOBILE PORTRAIT
+       ================================= */
 
     @media screen
     and (max-width: 699px)
@@ -207,6 +281,7 @@ content="https://printedbystaygold.github.io/wedding-opening/"
         height: 115vh;
 
         left: 50%;
+
         top: 50%;
 
         transform:
@@ -224,9 +299,9 @@ content="https://printedbystaygold.github.io/wedding-opening/"
     }
 
 
-    /* ================================
+    /* =================================
        SMALL PHONES
-       ================================ */
+       ================================= */
 
     @media screen
     and (max-width: 400px)
@@ -241,9 +316,9 @@ content="https://printedbystaygold.github.io/wedding-opening/"
     }
 
 
-    /* ================================
+    /* =================================
        IPAD PORTRAIT
-       ================================ */
+       ================================= */
 
     @media screen
     and (min-width: 700px)
@@ -257,6 +332,7 @@ content="https://printedbystaygold.github.io/wedding-opening/"
         height: 160vh;
 
         left: 50%;
+
         top: 50%;
 
         transform:
@@ -267,9 +343,9 @@ content="https://printedbystaygold.github.io/wedding-opening/"
     }
 
 
-    /* ================================
+    /* =================================
        LANDSCAPE
-       ================================ */
+       ================================= */
 
     @media screen
     and (orientation: landscape) {
@@ -291,14 +367,12 @@ content="https://printedbystaygold.github.io/wedding-opening/"
 <body>
 
   <!-- =================================
-       OPENING EXPERIENCE
+       ENVELOPE OPENING
        ================================= -->
 
   <main id="opening">
 
 ```
-<!-- VIDEO -->
-
 <video
   id="envelopeVideo"
   muted
@@ -315,22 +389,39 @@ content="https://printedbystaygold.github.io/wedding-opening/"
 </video>
 
 
-<!-- TAP TEXT -->
-
 <div id="tapText">
+
   Tap to open
+
 </div>
 ```
 
   </main>
 
   <!-- =================================
-       TRANSITION COVER
+       LUXURY TRANSITION
        ================================= -->
 
-  <div id="transitionCover"></div>
+  <section id="transitionScreen">
+
+```
+<div id="cordially">
+
+  Cordially Invited
+
+</div>
+
+
+<div id="transitionLine"></div>
+```
+
+  </section>
 
   <script>
+
+    /* =================================
+       ELEMENTS
+       ================================= */
 
     const video =
       document.getElementById(
@@ -342,32 +433,38 @@ content="https://printedbystaygold.github.io/wedding-opening/"
         "tapText"
       );
 
-    const opening =
+    const transitionScreen =
       document.getElementById(
-        "opening"
+        "transitionScreen"
       );
 
-    const transitionCover =
+    const cordially =
       document.getElementById(
-        "transitionCover"
+        "cordially"
+      );
+
+    const transitionLine =
+      document.getElementById(
+        "transitionLine"
       );
 
 
-    /* ================================
+    /* =================================
        WEDDING WEBSITE
-       ================================ */
+       ================================= */
 
     const weddingWebsite =
       "https://printedbystaygold.com/demo-vintage-minimalist";
 
 
     let opened = false;
+
     let transitioning = false;
 
 
-    /* ================================
-       INITIAL FRAME
-       ================================ */
+    /* =================================
+       INITIAL VIDEO STATE
+       ================================= */
 
     video.pause();
 
@@ -382,9 +479,9 @@ content="https://printedbystaygold.github.io/wedding-opening/"
     );
 
 
-    /* ================================
+    /* =================================
        OPEN INVITATION
-       ================================ */
+       ================================= */
 
     function openInvitation() {
 
@@ -396,7 +493,17 @@ content="https://printedbystaygold.github.io/wedding-opening/"
 
       video.currentTime = 0;
 
+
       video.play()
+
+        .then(function () {
+
+          console.log(
+            "Wedding opening started."
+          );
+
+        })
+
         .catch(function(error) {
 
           console.log(
@@ -413,9 +520,9 @@ content="https://printedbystaygold.github.io/wedding-opening/"
     }
 
 
-    /* ================================
-       CLICK
-       ================================ */
+    /* =================================
+       DESKTOP CLICK
+       ================================= */
 
     video.addEventListener(
       "click",
@@ -427,9 +534,9 @@ content="https://printedbystaygold.github.io/wedding-opening/"
     );
 
 
-    /* ================================
+    /* =================================
        MOBILE TOUCH
-       ================================ */
+       ================================= */
 
     video.addEventListener(
       "touchend",
@@ -446,9 +553,9 @@ content="https://printedbystaygold.github.io/wedding-opening/"
     );
 
 
-    /* ================================
+    /* =================================
        VIDEO FINISHED
-       ================================ */
+       ================================= */
 
     video.addEventListener(
       "ended",
@@ -460,24 +567,53 @@ content="https://printedbystaygold.github.io/wedding-opening/"
 
 
         /*
-          Keep the final frame visible
-          briefly before transitioning.
+          Briefly hold the final
+          envelope frame.
         */
 
         setTimeout(
           function() {
 
+
             /*
-              Fade the opening experience
-              gently into ivory.
+              Show ivory transition.
             */
 
-            transitionCover.style.opacity = "1";
+            transitionScreen.style.visibility =
+              "visible";
+
+            transitionScreen.style.opacity =
+              "1";
 
 
             /*
-              Wait for the fade to complete,
-              then open the wedding website.
+              Reveal Cordially Invited.
+            */
+
+            setTimeout(
+              function() {
+
+                cordially.style.opacity =
+                  "1";
+
+                cordially.style.transform =
+                  "translateY(0)";
+
+
+                transitionLine.style.opacity =
+                  "1";
+
+                transitionLine.style.transform =
+                  "scaleX(1)";
+
+              },
+              300
+            );
+
+
+            /*
+              Give the words a brief
+              elegant moment.
             */
 
             setTimeout(
@@ -488,8 +624,9 @@ content="https://printedbystaygold.github.io/wedding-opening/"
                 );
 
               },
-              850
+              1900
             );
+
 
           },
           150
@@ -497,7 +634,6 @@ content="https://printedbystaygold.github.io/wedding-opening/"
 
       }
     );
-
 
   </script>
 
