@@ -66,10 +66,6 @@ content="https://printedbystaygold.github.io/wedding-opening/"
 
   <style>
 
-    /* ================================
-       BASIC PAGE
-       ================================ */
-
     html,
     body {
 
@@ -86,7 +82,7 @@ content="https://printedbystaygold.github.io/wedding-opening/"
 
 
     /* ================================
-       DESKTOP / LANDSCAPE
+       VIDEO
        ================================ */
 
     #envelopeVideo {
@@ -266,11 +262,7 @@ preload="auto"
        ================================= -->
 
   <div id="tapText">
-
-```
-Tap to open
-```
-
+    Tap to open
   </div>
 
   <!-- =================================
@@ -287,7 +279,15 @@ Tap to open
 
 
     /* ================================
-       KEEP VIDEO AT FIRST FRAME
+       CANVA WEDDING WEBSITE
+       ================================ */
+
+    const weddingWebsite =
+      "https://printedbystaygold.com/demo-vintage-minimalist";
+
+
+    /* ================================
+       INITIAL STATE
        ================================ */
 
     video.pause();
@@ -304,25 +304,36 @@ Tap to open
 
 
     /* ================================
-       TAP TO PLAY
+       TAP TO OPEN
+       ================================ */
+
+    function openInvitation() {
+
+      tapText.style.display = "none";
+
+      video.currentTime = 0;
+
+      video.play();
+
+    }
+
+
+    /* ================================
+       DESKTOP CLICK
        ================================ */
 
     video.addEventListener(
       "click",
       function () {
 
-        tapText.style.display = "none";
-
-        video.currentTime = 0;
-
-        video.play();
+        openInvitation();
 
       }
     );
 
 
     /* ================================
-       TOUCH / MOBILE
+       MOBILE TOUCH
        ================================ */
 
     video.addEventListener(
@@ -331,14 +342,26 @@ Tap to open
 
         event.preventDefault();
 
-        tapText.style.display = "none";
-
-        video.currentTime = 0;
-
-        video.play();
+        openInvitation();
 
       },
       { passive: false }
+    );
+
+
+    /* ================================
+       WHEN VIDEO FINISHES
+       ================================ */
+
+    video.addEventListener(
+      "ended",
+      function () {
+
+        window.location.replace(
+          weddingWebsite
+        );
+
+      }
     );
 
 
