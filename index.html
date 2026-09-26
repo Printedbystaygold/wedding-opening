@@ -15,7 +15,7 @@ content="width=device-width, initial-scale=1.0"
   <title>Wedding Invitation</title>
 
   <!-- =================================
-       FACEBOOK / MESSENGER PREVIEW
+       SOCIAL MEDIA PREVIEW
        ================================= -->
 
 <meta
@@ -60,11 +60,11 @@ content="https://printedbystaygold.github.io/wedding-opening/"
 
 >
 
-  <!-- =================================
-       PAGE STYLE
-       ================================= -->
-
   <style>
+
+    /* ================================
+       PAGE
+       ================================ */
 
     html,
     body {
@@ -77,6 +77,31 @@ content="https://printedbystaygold.github.io/wedding-opening/"
       overflow: hidden;
 
       background: #f5f0e8;
+
+    }
+
+
+    /* ================================
+       OPENING
+       ================================ */
+
+    #opening {
+
+      position: fixed;
+
+      inset: 0;
+
+      width: 100vw;
+      height: 100vh;
+
+      overflow: hidden;
+
+      background: #f5f0e8;
+
+      opacity: 1;
+
+      transition:
+        opacity 0.8s ease;
 
     }
 
@@ -134,11 +159,41 @@ content="https://printedbystaygold.github.io/wedding-opening/"
 
       white-space: nowrap;
 
+      transition:
+        opacity 0.4s ease;
+
     }
 
 
     /* ================================
-       SAMSUNG / MOBILE PORTRAIT
+       TRANSITION COVER
+       ================================ */
+
+    #transitionCover {
+
+      position: fixed;
+
+      inset: 0;
+
+      width: 100%;
+      height: 100%;
+
+      background: #f5f0e8;
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      z-index: 20;
+
+      transition:
+        opacity 0.9s ease;
+
+    }
+
+
+    /* ================================
+       MOBILE
        ================================ */
 
     @media screen
@@ -236,58 +291,82 @@ content="https://printedbystaygold.github.io/wedding-opening/"
 <body>
 
   <!-- =================================
-       ENVELOPE VIDEO
+       OPENING EXPERIENCE
        ================================= -->
+
+  <main id="opening">
+
+```
+<!-- VIDEO -->
 
 <video
-id="envelopeVideo"
-muted
-playsinline
-webkit-playsinline
-preload="auto"
-
+  id="envelopeVideo"
+  muted
+  playsinline
+  webkit-playsinline
+  preload="auto"
 >
 
-```
-<source
-  src="./opening-envelope.mp4"
-  type="video/mp4"
->
+  <source
+    src="./opening-envelope.mp4"
+    type="video/mp4"
+  >
+
+</video>
+
+
+<!-- TAP TEXT -->
+
+<div id="tapText">
+  Tap to open
+</div>
 ```
 
-  </video>
+  </main>
 
   <!-- =================================
-       TAP TEXT
+       TRANSITION COVER
        ================================= -->
 
-  <div id="tapText">
-    Tap to open
-  </div>
-
-  <!-- =================================
-       JAVASCRIPT
-       ================================= -->
+  <div id="transitionCover"></div>
 
   <script>
 
     const video =
-      document.getElementById("envelopeVideo");
+      document.getElementById(
+        "envelopeVideo"
+      );
 
     const tapText =
-      document.getElementById("tapText");
+      document.getElementById(
+        "tapText"
+      );
+
+    const opening =
+      document.getElementById(
+        "opening"
+      );
+
+    const transitionCover =
+      document.getElementById(
+        "transitionCover"
+      );
 
 
     /* ================================
-       CANVA WEDDING WEBSITE
+       WEDDING WEBSITE
        ================================ */
 
     const weddingWebsite =
       "https://printedbystaygold.com/demo-vintage-minimalist";
 
 
+    let opened = false;
+    let transitioning = false;
+
+
     /* ================================
-       INITIAL STATE
+       INITIAL FRAME
        ================================ */
 
     video.pause();
@@ -304,22 +383,38 @@ preload="auto"
 
 
     /* ================================
-       TAP TO OPEN
+       OPEN INVITATION
        ================================ */
 
     function openInvitation() {
 
-      tapText.style.display = "none";
+      if (opened) return;
+
+      opened = true;
+
+      tapText.style.opacity = "0";
 
       video.currentTime = 0;
 
-      video.play();
+      video.play()
+        .catch(function(error) {
+
+          console.log(
+            "Video playback error:",
+            error
+          );
+
+          opened = false;
+
+          tapText.style.opacity = "1";
+
+        });
 
     }
 
 
     /* ================================
-       DESKTOP CLICK
+       CLICK
        ================================ */
 
     video.addEventListener(
@@ -338,27 +433,66 @@ preload="auto"
 
     video.addEventListener(
       "touchend",
-      function (event) {
+      function(event) {
 
         event.preventDefault();
 
         openInvitation();
 
       },
-      { passive: false }
+      {
+        passive: false
+      }
     );
 
 
     /* ================================
-       WHEN VIDEO FINISHES
+       VIDEO FINISHED
        ================================ */
 
     video.addEventListener(
       "ended",
-      function () {
+      function() {
 
-        window.location.replace(
-          weddingWebsite
+        if (transitioning) return;
+
+        transitioning = true;
+
+
+        /*
+          Keep the final frame visible
+          briefly before transitioning.
+        */
+
+        setTimeout(
+          function() {
+
+            /*
+              Fade the opening experience
+              gently into ivory.
+            */
+
+            transitionCover.style.opacity = "1";
+
+
+            /*
+              Wait for the fade to complete,
+              then open the wedding website.
+            */
+
+            setTimeout(
+              function() {
+
+                window.location.replace(
+                  weddingWebsite
+                );
+
+              },
+              850
+            );
+
+          },
+          150
         );
 
       }
